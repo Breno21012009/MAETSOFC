@@ -17,25 +17,32 @@ $idUsuario = intval($_SESSION['idUsuario']);
 // Conexão com o banco
 include "conexaoBD.php";
 
-// Busca os jogos da biblioteca do usuário
+
+// =====================================================
+// BUSCA OS JOGOS DA BIBLIOTECA DO USUÁRIO
+// =====================================================
+
 $sql = "SELECT 
-            Jogos.idJogo,
-            Jogos.nomeJogo,
-            Jogos.descricaoJogo,
-            Jogos.categoriaJogo,
-            Jogos.precoJogo,
-            Jogos.capaJogo,
-            Jogos.paginaJogo,
-            Biblioteca.dataAdicao
-        FROM Biblioteca
-        INNER JOIN Jogos 
-            ON Biblioteca.idJogo = Jogos.idJogo
-        WHERE Biblioteca.idUsuario = $idUsuario
-        ORDER BY Biblioteca.dataAdicao DESC";
+            jogos.idJogo,
+            jogos.nomeJogo,
+            jogos.descricaoJogo,
+            jogos.categoriaJogo,
+            jogos.precoJogo,
+            jogos.imagemJogo,
+            biblioteca.dataAdicao
+        FROM biblioteca
+        INNER JOIN jogos 
+            ON biblioteca.idJogo = jogos.idJogo
+        WHERE biblioteca.idUsuario = $idUsuario
+        ORDER BY biblioteca.dataAdicao DESC";
 
 $resultado = mysqli_query($conn, $sql);
 
-// Verifica se a consulta funcionou
+
+// =====================================================
+// VERIFICA SE A CONSULTA FUNCIONOU
+// =====================================================
+
 if (!$resultado) {
 
     die("
@@ -47,8 +54,13 @@ if (!$resultado) {
             border:1px solid #2a475e;
             border-radius:10px;
         '>
+
             <h3>Erro ao carregar a biblioteca</h3>
-            <p>" . htmlspecialchars(mysqli_error($conn)) . "</p>
+
+            <p>"
+                . htmlspecialchars(mysqli_error($conn)) .
+            "</p>
+
         </div>
     ");
 
@@ -61,19 +73,34 @@ if (!$resultado) {
 
 <style>
 
+/* =====================================================
+   FUNDO
+===================================================== */
+
 body {
     background: #0f1922;
 }
 
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
 .biblioteca-container {
+
     padding-top: 50px;
+
     padding-bottom: 70px;
+
 }
 
 
-/* Cabeçalho */
+/* =====================================================
+   CABEÇALHO
+===================================================== */
 
 .biblioteca-header {
+
     background: linear-gradient(
         135deg,
         #171a21,
@@ -81,47 +108,78 @@ body {
     );
 
     border: 1px solid #2a475e;
+
     border-radius: 12px;
+
     padding: 30px;
+
     margin-bottom: 35px;
 
-    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,0.25);
+
 }
+
 
 .biblioteca-header h1 {
+
     color: white;
+
     font-weight: bold;
+
     margin-bottom: 8px;
+
 }
+
 
 .biblioteca-header p {
+
     color: #8a9aaa;
+
     margin-bottom: 0;
+
 }
+
 
 .biblioteca-icon {
+
     font-size: 45px;
+
     color: #66c0f4;
+
     margin-right: 18px;
+
 }
 
 
-/* Barra de pesquisa */
+/* =====================================================
+   BARRA DE PESQUISA
+===================================================== */
 
 .pesquisa-biblioteca {
+
     background: #171a21;
+
     border: 1px solid #2a475e;
+
     color: white;
 
     padding: 13px 18px;
+
     border-radius: 8px;
 
     width: 100%;
+
     margin-bottom: 30px;
+
 }
 
+
 .pesquisa-biblioteca:focus {
+
     background: #171a21;
+
     color: white;
 
     border-color: #66c0f4;
@@ -129,19 +187,27 @@ body {
     box-shadow:
         0 0 0 0.2rem
         rgba(102,192,244,0.15);
+
 }
+
 
 .pesquisa-biblioteca::placeholder {
+
     color: #71808f;
+
 }
 
 
-/* Cards */
+/* =====================================================
+   CARDS DOS JOGOS
+===================================================== */
 
 .jogo-biblioteca {
+
     background: #171a21;
 
     border: 1px solid #2a475e;
+
     border-radius: 10px;
 
     overflow: hidden;
@@ -153,7 +219,9 @@ body {
     box-shadow:
         0 4px 12px
         rgba(0,0,0,0.2);
+
 }
+
 
 .jogo-biblioteca:hover {
 
@@ -164,44 +232,58 @@ body {
     box-shadow:
         0 8px 25px
         rgba(0,0,0,0.35);
+
 }
 
 
-/* Imagem da capa */
+/* =====================================================
+   IMAGEM DO JOGO
+===================================================== */
 
 .jogo-biblioteca img {
 
     width: 100%;
+
     height: 280px;
 
     object-fit: cover;
+
     object-position: center;
 
     background: #000;
+
 }
 
 
-/* Conteúdo */
+/* =====================================================
+   CONTEÚDO DO CARD
+===================================================== */
 
 .jogo-conteudo {
 
     padding: 20px;
 
     display: flex;
+
     flex-direction: column;
 
     height: calc(100% - 280px);
+
 }
+
 
 .jogo-nome {
 
     color: white;
 
     font-size: 20px;
+
     font-weight: bold;
 
     margin-bottom: 8px;
+
 }
+
 
 .jogo-categoria {
 
@@ -210,7 +292,9 @@ body {
     font-size: 14px;
 
     margin-bottom: 10px;
+
 }
+
 
 .jogo-descricao {
 
@@ -223,7 +307,9 @@ body {
     flex-grow: 1;
 
     margin-bottom: 15px;
+
 }
+
 
 .jogo-data {
 
@@ -232,10 +318,13 @@ body {
     font-size: 12px;
 
     margin-bottom: 15px;
+
 }
 
 
-/* Botão Ver Jogo */
+/* =====================================================
+   BOTÃO VER JOGO
+===================================================== */
 
 .btn-ver-jogo {
 
@@ -256,17 +345,22 @@ body {
     text-align: center;
 
     transition: 0.2s;
+
 }
+
 
 .btn-ver-jogo:hover {
 
     background: #4da8d8;
 
     color: white;
+
 }
 
 
-/* Biblioteca vazia */
+/* =====================================================
+   BIBLIOTECA VAZIA
+===================================================== */
 
 .biblioteca-vazia {
 
@@ -279,7 +373,9 @@ body {
     padding: 70px 30px;
 
     text-align: center;
+
 }
+
 
 .biblioteca-vazia i {
 
@@ -288,21 +384,31 @@ body {
     color: #2a475e;
 
     margin-bottom: 20px;
+
 }
+
 
 .biblioteca-vazia h3 {
 
     color: white;
 
     margin-bottom: 10px;
+
 }
+
 
 .biblioteca-vazia p {
 
     color: #8a9aaa;
 
     margin-bottom: 25px;
+
 }
+
+
+/* =====================================================
+   BOTÃO EXPLORAR
+===================================================== */
 
 .btn-explorar {
 
@@ -321,17 +427,22 @@ body {
     font-weight: bold;
 
     transition: 0.2s;
+
 }
+
 
 .btn-explorar:hover {
 
     background: #4da8d8;
 
     color: white;
+
 }
 
 
-/* Resultado da pesquisa */
+/* =====================================================
+   NENHUM RESULTADO DA PESQUISA
+===================================================== */
 
 #nenhumJogo {
 
@@ -342,7 +453,18 @@ body {
     padding: 50px;
 
     color: #8a9aaa;
+
 }
+
+
+#nenhumJogo h4 {
+
+    color: white;
+
+    margin-top: 15px;
+
+}
+
 
 </style>
 
@@ -350,13 +472,16 @@ body {
 <div class="container biblioteca-container">
 
 
-    <!-- Cabeçalho -->
+    <!-- =================================================
+         CABEÇALHO
+    ================================================== -->
 
     <div class="biblioteca-header">
 
         <div class="d-flex align-items-center">
 
             <i class="bi bi-collection-play biblioteca-icon"></i>
+
 
             <div>
 
@@ -375,10 +500,13 @@ body {
     </div>
 
 
+
     <?php if (mysqli_num_rows($resultado) > 0): ?>
 
 
-        <!-- Pesquisa -->
+        <!-- =================================================
+             PESQUISA
+        ================================================== -->
 
         <input
             type="text"
@@ -389,7 +517,10 @@ body {
         >
 
 
-        <!-- Jogos -->
+
+        <!-- =================================================
+             LISTA DE JOGOS
+        ================================================== -->
 
         <div
             class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"
@@ -402,60 +533,89 @@ body {
 
                 <div
                     class="col jogo-item"
-                    data-nome="<?php echo htmlspecialchars(strtolower($jogo['nomeJogo'])); ?>"
+                    data-nome="<?php echo htmlspecialchars(
+                        strtolower($jogo['nomeJogo'])
+                    ); ?>"
                 >
+
 
                     <div class="jogo-biblioteca">
 
 
-                        <!-- Imagem da capa -->
+                        <!-- =================================
+                             IMAGEM
+                        ================================== -->
 
                         <img
-                            src="<?php echo htmlspecialchars($jogo['capaJogo']); ?>"
-                            alt="<?php echo htmlspecialchars($jogo['nomeJogo']); ?>"
+                            src="<?php echo htmlspecialchars(
+                                $jogo['imagemJogo']
+                            ); ?>"
+                            alt="<?php echo htmlspecialchars(
+                                $jogo['nomeJogo']
+                            ); ?>"
                             onerror="this.onerror=null; this.src='assets/img/capa-padrao.jpg';"
                         >
 
 
-                        <!-- Conteúdo -->
+
+                        <!-- =================================
+                             CONTEÚDO
+                        ================================== -->
 
                         <div class="jogo-conteudo">
 
 
+                            <!-- NOME -->
+
                             <h3 class="jogo-nome">
 
                                 <?php
+
                                 echo htmlspecialchars(
                                     $jogo['nomeJogo']
                                 );
+
                                 ?>
 
                             </h3>
 
+
+
+                            <!-- CATEGORIA -->
 
                             <div class="jogo-categoria">
 
                                 <i class="bi bi-controller"></i>
 
                                 <?php
+
                                 echo htmlspecialchars(
                                     $jogo['categoriaJogo']
                                 );
+
                                 ?>
 
                             </div>
 
 
+
+                            <!-- DESCRIÇÃO -->
+
                             <p class="jogo-descricao">
 
                                 <?php
+
                                 echo htmlspecialchars(
                                     $jogo['descricaoJogo']
                                 );
+
                                 ?>
 
                             </p>
 
+
+
+                            <!-- DATA -->
 
                             <div class="jogo-data">
 
@@ -467,7 +627,9 @@ body {
 
                                 echo date(
                                     "d/m/Y",
-                                    strtotime($jogo['dataAdicao'])
+                                    strtotime(
+                                        $jogo['dataAdicao']
+                                    )
                                 );
 
                                 ?>
@@ -475,7 +637,10 @@ body {
                             </div>
 
 
-                            <!-- Botão Ver Jogo -->
+
+                            <!-- =================================
+                                 BOTÃO VER JOGO
+                            ================================== -->
 
                             <a
                                 href="visualizarJogo.php?id=<?php echo $jogo['idJogo']; ?>"
@@ -491,7 +656,9 @@ body {
 
                         </div>
 
+
                     </div>
+
 
                 </div>
 
@@ -502,7 +669,10 @@ body {
         </div>
 
 
-        <!-- Nenhum resultado -->
+
+        <!-- =================================================
+             NENHUM JOGO ENCONTRADO
+        ================================================== -->
 
         <div id="nenhumJogo">
 
@@ -511,9 +681,11 @@ body {
                 style="font-size:40px;"
             ></i>
 
+
             <h4>
                 Nenhum jogo encontrado
             </h4>
+
 
             <p>
                 Tente pesquisar por outro nome.
@@ -525,19 +697,25 @@ body {
     <?php else: ?>
 
 
-        <!-- Biblioteca vazia -->
+        <!-- =================================================
+             BIBLIOTECA VAZIA
+        ================================================== -->
 
         <div class="biblioteca-vazia">
 
+
             <i class="bi bi-controller"></i>
+
 
             <h3>
                 Sua biblioteca está vazia
             </h3>
 
+
             <p>
                 Você ainda não adicionou nenhum jogo à sua biblioteca.
             </p>
+
 
             <a
                 href="loja.php"
@@ -550,6 +728,7 @@ body {
 
             </a>
 
+
         </div>
 
 
@@ -559,7 +738,12 @@ body {
 </div>
 
 
+
 <script>
+
+// =====================================================
+// PESQUISA DA BIBLIOTECA
+// =====================================================
 
 function pesquisarBiblioteca() {
 
@@ -569,14 +753,21 @@ function pesquisarBiblioteca() {
         .toLowerCase()
         .trim();
 
-    let jogos = document.querySelectorAll(".jogo-item");
+
+    let jogos = document.querySelectorAll(
+        ".jogo-item"
+    );
+
 
     let encontrados = 0;
 
 
     jogos.forEach(function(jogo) {
 
-        let nome = jogo.getAttribute("data-nome");
+        let nome = jogo.getAttribute(
+            "data-nome"
+        );
+
 
         if (nome.includes(pesquisa)) {
 
@@ -594,7 +785,9 @@ function pesquisarBiblioteca() {
 
 
     let mensagem =
-        document.getElementById("nenhumJogo");
+        document.getElementById(
+            "nenhumJogo"
+        );
 
 
     if (encontrados === 0) {
@@ -610,6 +803,7 @@ function pesquisarBiblioteca() {
 }
 
 </script>
+
 
 
 <?php include "footer.php"; ?>

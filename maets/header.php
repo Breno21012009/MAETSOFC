@@ -425,7 +425,7 @@
                             <li>
 
                                 <a class="dropdown-item"
-                                   href="#">
+                                   href="meusJogos.php">
 
                                     <i class="bi bi-controller"></i>
 
@@ -457,7 +457,7 @@
                             <li>
 
                                 <a class="dropdown-item"
-                                   href="#">
+                                   href="amigos.php">
 
                                     <i class="bi bi-people"></i>
 
@@ -473,7 +473,7 @@
                             <li>
 
                                 <a class="dropdown-item"
-                                   href="#">
+                                   href="minhasCompras.php">
 
                                     <i class="bi bi-handbag"></i>
 
@@ -489,7 +489,7 @@
                             <li>
 
                                 <a class="dropdown-item"
-                                   href="#">
+                                   href="favoritos.php">
 
                                     <i class="bi bi-heart"></i>
 
@@ -505,7 +505,7 @@
                             <li>
 
                                 <a class="dropdown-item"
-                                   href="#">
+                                   href="configuracoes.php">
 
                                     <i class="bi bi-gear"></i>
 
